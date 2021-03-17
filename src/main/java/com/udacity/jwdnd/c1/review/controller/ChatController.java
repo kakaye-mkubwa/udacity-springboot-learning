@@ -1,7 +1,9 @@
 package com.udacity.jwdnd.c1.review.controller;
 
 import com.udacity.jwdnd.c1.review.model.ChatForm;
+import com.udacity.jwdnd.c1.review.model.User;
 import com.udacity.jwdnd.c1.review.service.MessageService;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,7 +28,19 @@ public class ChatController {
 
     @PostMapping()
     public String submitMessage(@ModelAttribute("chatForm") ChatForm chatForm, Model model){
-        messageService.addMessageToChat(chatForm);
+        int messageAdded = messageService.addMessageToChat(chatForm);
+        String submitResponse = null;
+
+        if (messageAdded < 0){
+            submitResponse = "Failed sending message. Retry";
+        }
+
+        if (submitResponse == null){
+            model.addAttribute("submitSuccess",true);
+        }else{
+            model.addAttribute("submitError",submitResponse);
+        }
+
         model.addAttribute("chats",messageService.getChats());
         return "chat";
     }
