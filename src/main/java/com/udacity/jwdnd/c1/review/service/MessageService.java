@@ -32,8 +32,8 @@ public class MessageService {
     public int addMessageToChat(ChatForm chatForm){
 //        chatFormList.add(chatForm);
         String message = handleMessageType(chatForm);
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        chatForm.setUsername(authentication.getPrincipal().toString());
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        chatForm.setUsername(authentication.getPrincipal().toString());
         chatForm.setMessagetext(message);
         return messageMapper.insertMessage(chatForm);
 //        String chatResponse = null;

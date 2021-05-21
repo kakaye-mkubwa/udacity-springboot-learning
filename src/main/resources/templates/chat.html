@@ -15,12 +15,12 @@
         <select id="messageType" th:field="*{messageType}">
             <option th:each="type: ${allMessageTypes}" th:value="${type}" th:text="${type}">Say</option>
         </select><br/>
-        <input type="submit">
+        <input id="submit-message" type="submit">
     </form>
     <button id="logout-btn" onclick="location.href='/logout'">Logout</button>
     <div th:each="chatMessage: ${chats}">
         <h3>Chats</h3>
-        <span th:text="${chatMessage}"></span><br/>
+        <p class="message-text-and-username" th:text="${chatMessage}"></p><br/>
     </div>
 </body>
 </html>

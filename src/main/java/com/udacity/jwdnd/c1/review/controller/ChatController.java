@@ -3,6 +3,7 @@ package com.udacity.jwdnd.c1.review.controller;
 import com.udacity.jwdnd.c1.review.model.ChatForm;
 import com.udacity.jwdnd.c1.review.model.User;
 import com.udacity.jwdnd.c1.review.service.MessageService;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,7 +28,8 @@ public class ChatController {
     }
 
     @PostMapping()
-    public String submitMessage(@ModelAttribute("chatForm") ChatForm chatForm, Model model){
+    public String submitMessage(@ModelAttribute("chatForm") ChatForm chatForm, Model model, Authentication authentication){
+        chatForm.setUsername(authentication.getName());
         int messageAdded = messageService.addMessageToChat(chatForm);
         String submitResponse = null;
 
